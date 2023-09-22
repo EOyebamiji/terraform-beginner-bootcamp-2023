@@ -24,4 +24,6 @@ touch ~/.bashrc
 
 terraform -install-autocomplete
 
+source ~/.bashrc
+
 cd $PROJECT_ROOT
