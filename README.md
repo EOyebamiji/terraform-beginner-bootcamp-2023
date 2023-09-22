@@ -21,3 +21,93 @@ Additionally, Semantic Versioning allows for pre-release and build metadata to b
 
 Semantic Versioning helps developers and users understand the impact of updates quickly. For example, if you see a change from version ``1.2.3`` to ``1.3.0``, you know that new features have been added but the existing functionality should remain compatible. If it changes to ``2.0.0``, you should be cautious, as there might be breaking changes.
 
+
+## Refactor the Terraform CLI
+### Considerations with the Terraform CLI changes
+The Terraform CLI installation instructions have changed due to gpg keyring changes. So we needed refer to the latest install CLI instructions via Terraform Documentation and change introduce a script to fully automate the install process. You can find the official doducmentation on how to [Install the Terraform CLI](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+
+### Development Environment
+We currentlly utilize a cloud developer environment [CDE](https://www.gitpod.io/cde) called [Gitpod](https://gitpod.io/workspaces) which provides a development environment built on Ubuntu - our prefered linux distribution.
+
+We can also utilize [Jumppad](https://jumppad.dev/) - it enables the creation and configuration of lightweight, reproducible, and portable environments as code.
+
+### Considerations for Linux Distribution
+This project is being developed in a Linux environment, with our prefered distribution being [Ubuntu](https://ubuntu.com/) - a [debian](https://www.debian.org/) based distribution built on the Linux Kernel.
+
+Please consider checking your Linux Distrubtion and change accordingly to distrubtion needs. [How To Check OS Version in Linux](
+https://www.cyberciti.biz/faq/how-to-check-os-version-in-linux-command-line/)
+
+Sample output when checking for the OS Version:
+
+```
+$ cat /etc/os-release
+PRETTY_NAME="Ubuntu 22.04.3 LTS"
+NAME="Ubuntu"
+VERSION_ID="22.04"
+VERSION="22.04.3 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=jammy
+```
+
+### Refactoring into Bash Scripts
+
+While fixing the Terraform CLI gpg depreciation issues we noticed that the steps provided were a considerable amount more code. So we decided to create a bash script to automate the installation of the Terraform CLI.
+
+This bash script is located here: [./bin/install_terraform_cli](./bin/install_terraform_cli)
+
+- This will keep the Gitpod Task File ([.gitpod.yml](.gitpod.yml)) tidy.
+- This allow us an easier to execute and debug installation
+- This will allow better portablity for other projects that need to install Terraform CLI.
+
+#### Shebang Considerations
+
+A Shebang (prounced Sha-bang) tells the bash script what program that will interpet the script. eg. `#!/bin/bash`
+
+ChatGPT recommended this format for bash: `#!/usr/bin/env bash`
+
+- This allows for portability and compatability for different OS distributions 
+- The will search the user's PATH for the bash executable
+
+More resources can be found here on [Shebang](https://en.wikipedia.org/wiki/Shebang_(Unix))
+
+#### Execution Considerations
+
+When executing the bash script we can use the `./` shorthand notiation to execute the bash script. However, required persmission for execution needs to be provided.
+
+eg. `./bin/install_terraform_cli`
+
+If we are using a script in .gitpod.yml  we need to point the script to a program to interpert it.
+
+eg. `source ./bin/install_terraform_cli`
+
+#### Linux Permissions Considerations
+
+In order to make our bash scripts executable we need to change linux permission for the file to be executable by the user.
+
+```sh
+chmod u+x ./bin/install_terraform_cli
+```
+
+alternatively:
+
+```sh
+chmod 744 ./bin/install_terraform_cli
+```
+
+Access more resources on [chmod](https://en.wikipedia.org/wiki/Chmod) - the command responsible for this permission granting.
+
+### Gitpod Lifecycle (Before, Init, Command)
+
+We need to be careful when using the Init because it will not rerun if we restart an existing workspace.
+
+- `before:` Use this for tasks that need to run before init and before command. For example, customize the terminal or install global project dependencies.
+- `init:` Use this for heavy-lifting tasks such as downloading dependencies or compiling source code.
+- `command:` Use this to start your database or development server.
+
+Access more resource on how to effectvely utilize [Gitpod Task](https://www.gitpod.io/docs/configure/workspaces/tasks)
