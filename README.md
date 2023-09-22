@@ -39,7 +39,7 @@ https://www.cyberciti.biz/faq/how-to-check-os-version-in-linux-command-line/)
 
 Sample output when checking for the OS Version:
 
-```
+```sh
 $ cat /etc/os-release
 PRETTY_NAME="Ubuntu 22.04.3 LTS"
 NAME="Ubuntu"
@@ -183,8 +183,83 @@ If it is, there should be a output of a json payload that looks like this:
 {
     "UserId": "AIEAVUO15ZPVHJ5WIJ5KR",
     "Account": "0123456789011",
-    "Arn": "arn:aws:iam::0123456789011:user/terraform-beginner-bootcamp"
+    "Arn": "arn:aws:iam::0123456789011:user/TF-Bootcamp"
 }
 ```
 
 We'll need to generate AWS CLI credits from IAM User in order to the user AWS CLI.
+
+
+## Terraform Basics
+
+[Terraform](https://www.terraform.io/) is an open-source infrastructure as code (IAC) tool developed by [HashiCorp](https://www.hashicorp.com/). It allows the definition and provision of infrastructure, such as virtual machines, networks, storage, and other cloud resources, using a declarative configuration language. Terraform enables the management and automatation of infrastructures in a way that's repeatable, version-controlled, and consistent.
+
+## Terraform Workflow
+
+The core Terraform workflow consists of three stages:
+
+- **Write:** We define resources, which may be across multiple cloud providers and services. E.g., creating a configuration file to deploy an application on virtual machines in a Virtual Private Cloud (VPC) network with security groups and a load balancer.
+
+- **Plan:** Terraform creates an execution plan describing the infrastructure it will create, update, or destroy based on the existing infrastructure and our written configuration.
+
+- **Apply:** On approval, Terraform performs the proposed operations in the correct order, respecting any resource dependencies. As in the example given for a VPC, if we decide to update the properties of the VPC and change the number of virtual machines in that VPC, Terraform will recreate the VPC before scaling the virtual machines.
+
+More resources can be found [here](https://developer.hashicorp.com/terraform/intro)
+
+### Terraform Registry
+[Terraform registry](https://registry.terraform.io/) is an interactive resource for discovering a wide selection of integrations (providers), configuration packages (modules), and security rules (policies) for use with Terraform. Access more resources on [Terraform registry](https://registry.terraform.io/) [here](https://developer.hashicorp.com/terraform/registry)
+
+Terraform sources their providers and modules from the Terraform registry which located at [registry.terraform.io](https://registry.terraform.io/)
+
+- **Providers** is an interface to APIs that will allow to create resources in terraform. They are also responsible for understanding API interactions and exposing resources.
+
+- **Modules** are a way to make large amount of terraform code modular, portable and sharable. they are small, reusable Terraform configurations that allows the management of a group of related resources as if they were a single resource.
+
+A sample terraform provider projet can be accessed here.  [Random Terraform Provider](https://registry.terraform.io/providers/hashicorp/random)
+
+### Terraform Console
+
+We can see a list of all the Terrform commands by simply typing `terraform`
+
+
+- #### Terraform Init
+
+At the start of a new terraform project we run the `terraform init` command to download the binaries for the terraform providers that we'll use in this project.
+
+- #### Terraform Plan
+
+`terraform plan`
+
+This will generate out a changeset, about the state of our infrastructure and what will be changed.
+
+We can output this changeset i.e. "plan" to be passed to an apply, but often we can just ignore outputting.
+
+- #### Terraform Apply
+
+`terraform apply`
+
+This will run a plan and pass the changeset to be execute by terraform. Apply should prompt yes or no.
+
+If we want to automatically approve an apply we can provide the auto approve flag eg. `terraform apply --auto-approve`
+
+- #### Terraform Lock Files
+
+`.terraform.lock.hcl` contains the locked versioning for the providers or modulues that should be used with this project.
+
+The Terraform Lock File **should be committed** to our project repository in our prefered Version Control System (VSC) E.g., Github
+
+- #### Terraform State Files
+
+`.terraform.tfstate` contain information about the current state of your infrastructure.
+
+This file **should not be commited** to your VCS.
+
+This file can contain sensentive data.
+
+If this file is lost, we lose knowledge about the the state of our infrastructure.
+
+`.terraform.tfstate.backup` is the previous state file state.
+
+- #### Terraform Directory
+
+`.terraform` directory contains binaries of terraform providers.
