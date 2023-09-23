@@ -18,11 +18,12 @@ terraform {
   }
 }
 
-provider "random" {
+provider "aws" {
+  region = "us-east-1"
   # Configuration options
 }
 
-provider "aws" {
+provider "random" {
   # Configuration options
 }
 
@@ -33,12 +34,12 @@ resource "random_string" "bucket_name" {
   special = false
 }
 
-output "random_bucket_name" {
-    value = random_string.bucket_name.result
-}
-
-resource "aws_s3_bucket" "bucket_name" {
+resource "aws_s3_bucket" "s3_bucket_name" {
   # Bucket Naming Rules
   # https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html?icmpid=docs_amazons3_console
   bucket = random_string.bucket_name.result
+}
+
+output "random_bucket_name" {
+    value = random_string.bucket_name.result
 }
