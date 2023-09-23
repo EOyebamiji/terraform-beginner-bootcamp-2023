@@ -300,3 +300,5 @@ open /home/gitpod/.terraform.d/credentials.tfrc.json
   }
 }
 ```
+- #### TF CLoud issues
+After creating the token fot gitpod, it's important to configure the AWS Env Var in Terraform Cloud as a sensitive file, to avoid running to issues.
