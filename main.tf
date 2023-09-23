@@ -1,7 +1,14 @@
 terraform {
+  #backend "remote" {
+  #  hostname = "app.terraform.io"
+  #  organization = "ExamPro"
+
+  #  workspaces {
+  #    name = "terra-house-1"
+  #  }
+  #}
   cloud {
     organization = "EOyebamiji-TF-Bootcamp"
-
     workspaces {
       name = "Terra-House-1"
     }
@@ -19,6 +26,7 @@ terraform {
 }
 
 provider "aws" {
+<<<<<<< Updated upstream
   region = "us-east-1"
   # Configuration options
 }
@@ -27,13 +35,30 @@ provider "random" {
   # Configuration options
 }
 
-resource "random_string" "bucket_name" {
-  length  = 32
-  lower = true
-  upper = false
-  special = false
+=======
+  # Configuration options
+}
+provider "random" {
+  # Configuration options
 }
 
+# https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string
+>>>>>>> Stashed changes
+resource "random_string" "bucket_name" {
+  lower = true
+  upper = false
+  length   = 32
+  special  = false
+}
+
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket
+resource "aws_s3_bucket" "example" {
+  # Bucket Naming Rules
+  #https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html?icmpid=docs_amazons3_console
+  bucket = random_string.bucket_name.result
+}
+
+<<<<<<< Updated upstream
 resource "aws_s3_bucket" "s3_bucket_name" {
   # Bucket Naming Rules
   # https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html?icmpid=docs_amazons3_console
@@ -42,4 +67,8 @@ resource "aws_s3_bucket" "s3_bucket_name" {
 
 output "random_bucket_name" {
     value = random_string.bucket_name.result
+=======
+output "random_bucket_name" {
+  value = random_string.bucket_name.result
+>>>>>>> Stashed changes
 }
