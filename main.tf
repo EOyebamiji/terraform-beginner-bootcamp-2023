@@ -26,7 +26,6 @@ terraform {
 }
 
 provider "aws" {
-<<<<<<< Updated upstream
   region = "us-east-1"
   # Configuration options
 }
@@ -35,15 +34,7 @@ provider "random" {
   # Configuration options
 }
 
-=======
-  # Configuration options
-}
-provider "random" {
-  # Configuration options
-}
-
 # https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string
->>>>>>> Stashed changes
 resource "random_string" "bucket_name" {
   lower = true
   upper = false
@@ -58,7 +49,6 @@ resource "aws_s3_bucket" "example" {
   bucket = random_string.bucket_name.result
 }
 
-<<<<<<< Updated upstream
 resource "aws_s3_bucket" "s3_bucket_name" {
   # Bucket Naming Rules
   # https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html?icmpid=docs_amazons3_console
@@ -66,9 +56,5 @@ resource "aws_s3_bucket" "s3_bucket_name" {
 }
 
 output "random_bucket_name" {
-    value = random_string.bucket_name.result
-=======
-output "random_bucket_name" {
   value = random_string.bucket_name.result
->>>>>>> Stashed changes
 }
