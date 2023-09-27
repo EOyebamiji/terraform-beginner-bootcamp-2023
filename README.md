@@ -1,5 +1,12 @@
 # Terraform Beginner Bootcamp 2023
 
+## Table of Contents
+
+- [Semantic Versioning](#semantic-versioning)
+- [Refactor the Terraform CLI](#refactor-the-terraform-cli)
+  - [Considerations with the Terraform CLI changes](#considerations-with-the-terraform-cli-changes)
+
+
 ## Semantic Versioning
 
 This project will utilize semantic versioning for its tagging.
