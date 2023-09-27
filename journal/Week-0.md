@@ -1,36 +1,35 @@
 - [Terraform Beginner Bootcamp 2023](#terraform-beginner-bootcamp-2023)
-  * [Table of Contents](#table-of-contents)
-  * [Semantic Versioning](#semantic-versioning)
-  * [Refactor the Terraform CLI](#refactor-the-terraform-cli)
-    + [Considerations with the Terraform CLI changes](#considerations-with-the-terraform-cli-changes)
-    + [Development Environment](#development-environment)
-    + [Considerations for Linux Distribution](#considerations-for-linux-distribution)
-    + [Refactoring into Bash Scripts](#refactoring-into-bash-scripts)
-      - [Shebang Considerations](#shebang-considerations)
-      - [Execution Considerations](#execution-considerations)
-      - [Linux Permissions Considerations](#linux-permissions-considerations)
-    + [Gitpod Lifecycle (Before, Init, Command)](#gitpod-lifecycle--before--init--command-)
-    + [Working Env Vars](#working-env-vars)
-      - [Env command](#env-command)
-      - [Setting and Unsetting Env Vars](#setting-and-unsetting-env-vars)
-      - [Printing Vars](#printing-vars)
-      - [Scoping of Env Vars](#scoping-of-env-vars)
-      - [Persisting Env Vars in Gitpod](#persisting-env-vars-in-gitpod)
-    + [AWS CLI Installation](#aws-cli-installation)
-  * [Terraform Basics](#terraform-basics)
-  * [Terraform Workflow](#terraform-workflow)
-    + [Terraform Registry](#terraform-registry)
-    + [Terraform Console](#terraform-console)
-      - [Terraform Init](#terraform-init)
-      - [Terraform Plan](#terraform-plan)
-      - [Terraform Apply](#terraform-apply)
-      - [Terraform Destroy](#terraform-destroy)
-      - [Terraform Lock Files](#terraform-lock-files)
-      - [Terraform State Files](#terraform-state-files)
-      - [Terraform Directory](#terraform-directory)
-  * [Issues with Terraform Cloud Login and Gitpod Workspace](#issues-with-terraform-cloud-login-and-gitpod-workspace)
-      - [TF CLoud issues](#tf-cloud-issues)
-
+- [Table of Contents](#table-of-contents)
+- [Semantic Versioning](#semantic-versioning)
+- [Refactor the Terraform CLI](#refactor-the-terraform-cli)
+  * [Considerations with the Terraform CLI changes](#considerations-with-the-terraform-cli-changes)
+  * [Development Environment](#development-environment)
+  * [Considerations for Linux Distribution](#considerations-for-linux-distribution)
+  * [Refactoring into Bash Scripts](#refactoring-into-bash-scripts)
+    + [Shebang Considerations](#shebang-considerations)
+    + [Execution Considerations](#execution-considerations)
+    + [Linux Permissions Considerations](#linux-permissions-considerations)
+- [Gitpod Lifecycle](#gitpod-lifecycle)
+- [Working Env Vars](#working-env-vars)
+  * [Env command](#env-command)
+  * [Setting and Unsetting Env Vars](#setting-and-unsetting-env-vars)
+  * [Printing Vars](#printing-vars)
+  * [Scoping of Env Vars](#scoping-of-env-vars)
+  * [Persisting Env Vars in Gitpod](#persisting-env-vars-in-gitpod)
+- [AWS CLI Installation](#aws-cli-installation)
+- [Terraform Basics](#terraform-basics)
+- [Terraform Workflow](#terraform-workflow)
+  * [Terraform Registry](#terraform-registry)
+  * [Terraform Console](#terraform-console)
+    + [Terraform Init](#terraform-init)
+    + [Terraform Plan](#terraform-plan)
+    + [Terraform Apply](#terraform-apply)
+    + [Terraform Destroy](#terraform-destroy)
+    + [Terraform Lock Files](#terraform-lock-files)
+    + [Terraform State Files](#terraform-state-files)
+    + [Terraform Directory](#terraform-directory)
+- [Issues with Terraform Cloud Login and Gitpod Workspace](#issues-with-terraform-cloud-login-and-gitpod-workspace)
+    + [TF Cloud issues](#tf-cloud-issues)
 
 ## Semantic Versioning
 
@@ -134,7 +133,7 @@ chmod 744 ./bin/install_terraform_cli
 
 Access more resources on [chmod](https://en.wikipedia.org/wiki/Chmod) - the command responsible for this permission granting.
 
-### Gitpod Lifecycle (Before, Init, Command)
+## Gitpod Lifecycle
 
 We need to be careful when using the Init because it will not rerun if we restart an existing workspace.
 
@@ -144,15 +143,15 @@ We need to be careful when using the Init because it will not rerun if we restar
 
 Access more resources on how to effectively utilize [Gitpod Task](https://www.gitpod.io/docs/configure/workspaces/tasks)
 
-### Working Env Vars
+## Working Env Vars
 
-#### Env command
+### Env command
 
 We can list out all environmental variables (Env Vars) using the `env` command
 
 We can filter specific `env vars` using grep eg. `env | grep AWS`
 
-#### Setting and Unsetting Env Vars
+### Setting and Unsetting Env Vars
 
 In the terminal, we can set using `export HELLO='world`
 
@@ -173,17 +172,17 @@ HELLO='world'
 echo $HELLO
 ```
 
-#### Printing Vars
+### Printing Vars
 
 We can print an env var using echo eg. `echo $HELLO`
 
-#### Scoping of Env Vars
+### Scoping of Env Vars
 
 When you open up new bash terminals in VSCode it will not be aware of env vars that you have set in another window.
 
 If you want an env var to persist across all future bash terminals that are open, you'd need to set env vars in your bash profile. eg. `.bash_profile`
 
-#### Persisting Env Vars in Gitpod
+### Persisting Env Vars in Gitpod
 
 We can persist env vars into Gitpod by storing them in Gitpod Secrets Storage.
 
@@ -196,7 +195,7 @@ All future workspaces launched will set the env vars for all bash terminals open
 You can also set en vars in the `.gitpod.yml` but this can only contain non-senstive env vars.
 
 
-### AWS CLI Installation
+## AWS CLI Installation
 
 AWS is our preferred cloud platform for this project and as such requires the configuration of [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) into our [CDE](https://www.gitpod.io/cde). 
 
@@ -224,7 +223,7 @@ We'll need to generate AWS CLI credits from the IAM User to the user AWS CLI.
 
 ## Terraform Basics
 
-[Terraform](https://www.terraform.io/) is an open-source infrastructure as code (IAC) tool developed by [HashiCorp](https://www.hashicorp.com/). It allows the definition and provision of infrastructure, such as virtual machines, networks, storage, and other cloud resources, using a declarative configuration language. Terraform enables the management and automatation of infrastructures in a way that's repeatable, version-controlled, and consistent.
+[Terraform](https://www.terraform.io/) is an open-source infrastructure as code (IAC) tool developed by [HashiCorp](https://www.hashicorp.com/). It allows the definition and provision of infrastructure, such as virtual machines, networks, storage, and other cloud resources, using a declarative configuration language. Terraform enables the management and automation of infrastructures in a way that's repeatable, version-controlled, and consistent.
 
 ## Terraform Workflow
 
