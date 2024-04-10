@@ -184,3 +184,42 @@ resource "aws_s3_object" "index_html" {
   source = "${path.root}/public/index.html"
 }
 ```
+
+## Terraform Locals
+Terraform locals are used to declare local variables within our Terraform configuration files. These variables are defined within a `locals` block and are useful for simplifying complex expressions, avoiding redundancy, and improving readability. Local variables are scoped to the module where they are defined and cannot be accessed outside of that module.
+
+Locals allows us to define local variables. It can be very useful when we need transform data into another format and have referenced a varaible.
+
+```tf
+locals {
+  s3_origin_id = "MyS3Origin"
+}
+```
+
+Reference more information on [Local Values](https://developer.hashicorp.com/terraform/language/values/locals)
+
+## Terraform Data Sources
+
+Terraform data sources allow you to fetch information from external systems or providers and use that data within our Terraform configuration. Data sources are defined using the `data` block in our Terraform configuration files.
+
+This allows us to source data from cloud resources. This is useful when we want to reference cloud resources without importing them.
+
+```tf
+data "aws_caller_identity" "current" {}
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
+}
+```
+
+Reference more information on [Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
+
+## Working with JSON
+
+In Terraform, `jsonencode` is a function used to convert Terraform data structures into JSON strings. This is particularly useful when you need to pass JSON-formatted data to external systems or when working with APIs that expect JSON input. We use the jsonencode to create the json policy inline in the hcl.
+
+```tf
+> jsonencode({"hello"="world"})
+{"hello":"world"}
+```
+
+Reference more information on [jsonencode](https://developer.hashicorp.com/terraform/language/functions/jsonencode)
