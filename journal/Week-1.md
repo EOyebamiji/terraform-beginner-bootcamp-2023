@@ -233,3 +233,56 @@ Reference more information on [jsonencode](https://developer.hashicorp.com/terra
 Plain data values such as Local Values and Input Variables don't have any side-effects to plan against and so they aren't valid in replace_triggered_by. You can use terraform_data's behavior of planning an action each time input changes to indirectly use a plain value to trigger replacement.
 
 Reference more information on [Terraform Data ](https://developer.hashicorp.com/terraform/language/resources/terraform-data)
+
+
+## Provisioners
+
+Terraform provisioners are used to execute scripts or commands on local or remote resources after they have been created or updated by Terraform. Provisioners are typically used for tasks such as installing software, configuring applications, initializing databases, or performing any other actions required to prepare a resource for use. Provisioners allow you to execute commands on compute instances eg. a AWS CLI command. They are not recommended for use by Hashicorp because Configuration Management tools such as Ansible are a better fit, but the functionality exists. Configuration as code (CaC) such as Anisble, Puppet, and Chef are perfectly for incorporating configuration into our infrastructure.
+
+Reference more information on [Provisioners](https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax)
+
+### Local-Exec Provisioner
+
+This provisioner runs commands or scripts on the machine where Terraform is executed. It is suitable for tasks that need to be performed locally, such as initializing configurations or running setup scripts. This will execute command on the machine running the terraform commands eg. plan apply
+
+```tf
+resource "aws_instance" "web" {
+  # ...
+  provisioner "local-exec" {
+    command = "echo The server's IP address is ${self.private_ip}"
+  }
+}
+```
+
+Reference more information on [Local-Exec Provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec)
+
+### Remote-Exec Provisioner: 
+
+This provisioner runs commands or scripts on a remote resource over SSH or WinRM. It is useful for tasks like executing commands on newly created instances or configuring remote servers. This will execute commands on a machine which you target. You will need to provide credentials such as ssh to get into the machine.
+
+```tf
+resource "aws_instance" "web" {
+  # ...
+  # Establishes connection to be used by all
+  # generic remote provisioners (i.e. file/remote-exec)
+  connection {
+    type     = "ssh"
+    user     = "root"
+    password = var.root_password
+    host     = self.public_ip
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "puppet apply",
+      "consul join ${aws_instance.web.private_ip}",
+    ]
+  }
+}
+```
+Reference more information on [Remote-Exec Provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec)
+
+### File Provisioner: 
+
+This provisioner is used to copy files or directories from the local machine to a remote resource over SSH or WinRM.
+
+Reference more information on [File Provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/file)
