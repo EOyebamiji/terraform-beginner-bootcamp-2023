@@ -4,34 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amala Cuisine</title>
-</head>
-<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-    <header style="background-color: #333; color: #fff; text-align: center; padding: 20px;">
+        header {
+            background-color: #8B0000;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .about {
+            background-color: #fff;
+        }
+
+        .menu {
+            background-color: #f8f8f8;
+        }
+
+        .contact {
+            background-color: #333;
+            color: #fff;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .service {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
         <h1>Welcome to Amala Delights</h1>
         <p>Your Destination for Authentic Amala Cuisine</p>
     </header>
 
-    <section class="about" style="padding: 20px;">
+    <section class="about">
         <h2>About Us</h2>
         <p>Welcome to Amala Delights, where we serve the finest Amala cuisine in town. Our dishes are prepared with love, using traditional recipes and the freshest ingredients.</p>
     </section>
 
-    <section class="menu" style="background-color: #fff; padding: 20px;">
-        <h2>Menu</h2>
-        <ul>
-            <li>Plain Amala</li>
-            <li>Ewedu Soup</li>
-            <li>Gbegiri Soup</li>
-            <li>Goat Meat Stew</li>
-            <li>Beef Stew</li>
-            <li>Chicken Stew</li>
-            <li>Fried Fish</li>
-            <li>Vegetable Soup</li>
-        </ul>
+    <section class="services">
+        <div class="service">
+            <h3>Our Menu</h3>
+            <ul>
+                <li>Plain Amala</li>
+                <li>Ewedu Soup</li>
+                <li>Gbegiri Soup</li>
+                <li>Goat Meat Stew</li>
+                <li>Beef Stew</li>
+                <li>Chicken Stew</li>
+                <li>Fried Fish</li>
+                <li>Vegetable Soup</li>
+            </ul>
+        </div>
+        <div class="service">
+            <h3>Special Offers</h3>
+            <p>Check out our weekly specials for delicious deals!</p>
+        </div>
+        <div class="service">
+            <h3>Catering Services</h3>
+            <p>We offer catering for events of all sizes. Contact us for customized menus.</p>
+        </div>
+        <div class="service">
+            <h3>Online Ordering</h3>
+            <p>Order your favorite dishes online for pickup or delivery.</p>
+        </div>
     </section>
 
-    <section class="contact" style="background-color: #333; color: #fff; padding: 20px;">
+    <section class="contact">
         <h2>Contact Us</h2>
         <address>
             <p>123 Amala Street</p>
@@ -41,7 +108,7 @@
         </address>
     </section>
 
-    <footer style="background-color: #333; color: #fff; text-align: center; padding: 10px;">
+    <footer>
         <p>&copy; 2023 Amala Delights</p>
     </footer>
 </body>
