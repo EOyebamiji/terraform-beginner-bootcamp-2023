@@ -286,3 +286,15 @@ Reference more information on [Remote-Exec Provisioner](https://developer.hashic
 This provisioner is used to copy files or directories from the local machine to a remote resource over SSH or WinRM.
 
 Reference more information on [File Provisioner](https://developer.hashicorp.com/terraform/language/resources/provisioners/file)
+
+## For Each Expressions
+
+The `for_each` expression in Terraform is used to iterate over a map or set of objects and create multiple instances of a resource or module based on the elements in the map or set. It allows you to dynamically create and manage multiple resources with similar configurations but different attributes. For each allows us to enumerate over complex data types
+
+```sh
+[for s in var.list : upper(s)]
+```
+
+This is mostly useful when you are creating multiples of a cloud resource and you want to reduce the amount of repetitive terraform code.
+
+Reference more information on [For Each Expressions](https://developer.hashicorp.com/terraform/language/expressions/for)
