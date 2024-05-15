@@ -5,12 +5,12 @@ terraform {
       version = "1.0.0"
     }
   }
-# #   cloud {
-# #     organization = "EOyebamiji-TF-Bootcamp"
-# #     workspaces {
-# #       name = "Terra-House-1"
-# #     }
-# #   }
+  cloud {
+    organization = "EOyebamiji-TF-Bootcamp"
+    workspaces {
+      name = "Terra-House-1"
+    }
+  }
 #   required_providers {
 #     aws = {
 #       source = "hashicorp/aws"
