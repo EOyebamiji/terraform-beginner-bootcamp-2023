@@ -25,30 +25,29 @@ terraform {
 }
 
 provider "terratowns" {
-  endpoint = "http://localhost:4567/api"
-  user_uuid = "e328f4ab-b99f-421c-84c9-4ccea042c7d1" 
-  token = "9b49b3fb-b8e9-483c-b703-97ba88eef8e0"
+  endpoint = var.terratowns_endpoint
+  user_uuid = var.teacherseat_user_uuid
+  token = var.terratowns_access_token
 }
 
-# module "terrahouse_aws" {
-#   source = "./modules/terrahouse_aws"
-#   user_uuid = var.user_uuid
-#   bucket_name = var.bucket_name
-#   index_html_filepath = var.index_html_filepath
-#   error_html_filepath = var.error_html_filepath
-#   assets_path = var.assets_path
-#   content_version = var.content_version
-# }
+module "terrahouse_aws" {
+  source = "./modules/terrahouse_aws"
+  user_uuid = var.teacherseat_user_uuid
+  index_html_filepath = var.index_html_filepath
+  error_html_filepath = var.error_html_filepath
+  assets_path = var.assets_path
+  content_version = var.content_version
+}
 
 resource "terratowns_home" "home" {
   name = "Amala Cuisine: A Taste of Tradition and Comfort"
   description =  <<DESCRIPTION
-Amala is a cherished dish rooted in the heart of Yoruba culture in Nigeria, celebrated for its unique flavor and hearty texture. Made from yam flour (elubo) or a combination of plantain flour and cassava flour, Amala is a staple that showcases the ingenuity and agricultural richness of the Yoruba people.
-The preparation of Amala involves boiling water and gradually adding the flour while stirring continuously until a smooth, stretchy dough-like consistency is achieved. The result is a dark, velvety dish that pairs perfectly with a variety of rich, savory soups such as ewedu (jute leaves soup), gbegiri (bean soup), or ogbono (wild mango seed soup).
-Each bite of Amala offers a comforting, slightly earthy flavor that complements the robust spices and ingredients found in traditional Nigerian soups. It is typically enjoyed by hand, rolled into small balls, and dipped into the accompanying soup, creating a harmonious blend of tastes and textures.
-Amala cuisine is more than just a meal; it's a culinary experience that connects generations, evokes memories of home, and brings people together to share in the warmth and richness of the Yoruba heritage. Whether served at family gatherings, celebrations, or local eateries, Amala remains a beloved symbol of Nigerian culture and culinary excellence.
+  Amala is a cherished dish rooted in the heart of Yoruba culture in Nigeria, celebrated for its unique flavor and hearty texture. Made from yam flour (elubo) or a combination of plantain flour and cassava flour, Amala is a staple that showcases the ingenuity and agricultural richness of the Yoruba people.
+  The preparation of Amala involves boiling water and gradually adding the flour while stirring continuously until a smooth, stretchy dough-like consistency is achieved. The result is a dark, velvety dish that pairs perfectly with a variety of rich, savory soups such as ewedu (jute leaves soup), gbegiri (bean soup), or ogbono (wild mango seed soup).
+  Each bite of Amala offers a comforting, slightly earthy flavor that complements the robust spices and ingredients found in traditional Nigerian soups. It is typically enjoyed by hand, rolled into small balls, and dipped into the accompanying soup, creating a harmonious blend of tastes and textures.
+  Amala cuisine is more than just a meal; it's a culinary experience that connects generations, evokes memories of home, and brings people together to share in the warmth and richness of the Yoruba heritage. Whether served at family gatherings, celebrations, or local eateries, Amala remains a beloved symbol of Nigerian culture and culinary excellence.
 DESCRIPTION
-  domain_name = "*.cloudfront.net"
-  town = "Oluyole-Ibadan"
+  domain_name = module.terrahouse_aws.cloudfront_url
+  town = "missingo"
   content_version = 1
 }
